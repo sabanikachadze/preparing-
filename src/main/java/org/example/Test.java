@@ -31,10 +31,6 @@ public class Test {
 
     }
 
-    public static void main(String[] args) {
-        new B();
-    }
-
 
     interface Chargeable {
         default double fee() {
@@ -53,5 +49,25 @@ public class Test {
         public double fee() {
             return Chargeable.super.fee() + Taxable.super.fee();
         }
+    }
+
+
+    static class P {
+        String name = "P";
+
+        String get() {
+            return name;
+        }
+    }
+
+    static class C extends P {
+        String name = "C";
+    }
+
+
+    public static void main(String[] args) {
+
+        P p = new C();
+        System.out.println(p.name + p.get() + ((C) p).name);
     }
 }
