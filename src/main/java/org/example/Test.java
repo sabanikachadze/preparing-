@@ -13,7 +13,6 @@ public class Test {
         }
 
         A(int x) {
-            this();
             System.out.println("A(int)");
         }
     }
@@ -25,8 +24,11 @@ public class Test {
         }
 
         B(int x) {
+
             System.out.println("5");
         }
+
+
     }
 
     public static void main(String[] args) {
