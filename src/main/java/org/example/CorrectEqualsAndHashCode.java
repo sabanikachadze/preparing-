@@ -4,24 +4,26 @@ import java.util.Objects;
 
 public class CorrectEqualsAndHashCode {
 
-    class Tag {
-        private final String name;
+
+
+
+    class Card {
+        private final int rank;
+
+        Card(int rank) {
+            this.rank = rank;
+        }
 
         @Override
         public boolean equals(Object o) {
             if (o == null || getClass() != o.getClass()) return false;
-            Tag tag = (Tag) o;
-            return Objects.equals(name, tag.name);
+            Card card = (Card) o;
+            return rank == card.rank;
         }
 
         @Override
         public int hashCode() {
-            return Objects.hashCode(name);
-        }
-
-        Tag(String name) {
-            Objects.requireNonNull(name, "Name must not be null");
-            this.name = name;
+            return Objects.hashCode(rank);
         }
     }
 }
