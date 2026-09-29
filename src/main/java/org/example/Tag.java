@@ -1,8 +1,11 @@
 package org.example;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 class Tag {
+
         private final String name;
 
         @Override
@@ -17,7 +20,7 @@ class Tag {
             return Objects.hashCode(name);
         }
 
-        Tag(String name) {
+    Tag(String name) {
             Objects.requireNonNull(name, "Name must not be null");
             this.name = name;
         }

@@ -66,8 +66,6 @@ public class Test {
 
 
     public static void main(String[] args) {
-
-        P p = new C();
-        System.out.println(p.name + p.get() + ((C) p).name);
+        System.out.println(String.format("%f", 5));
     }
 }
