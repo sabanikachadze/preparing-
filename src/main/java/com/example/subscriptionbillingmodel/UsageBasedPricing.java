@@ -1,4 +1,4 @@
-package org.example.subscriptionbillingmodel;
+package com.example.subscriptionbillingmodel;
 
 public class UsageBasedPricing implements PricingStrategy {
 

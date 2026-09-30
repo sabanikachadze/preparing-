@@ -1,4 +1,4 @@
-package org.example;
+package com.example;
 
 public record Order(int orderId,
                     String customerName,

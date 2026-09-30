@@ -1,7 +1,5 @@
-package org.example;
+package com.example;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 class Tag {
