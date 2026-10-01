@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class TrainingOnDSA {
 
     public static void main(String[] ags) {
-        System.out.println((containsDuplicate(new int[]{1, 2, 3, 4})));
+        System.out.println((containsDuplicateVersion2(new int[]{1, 2, 3, 4, 5, 6 ,7 , 5})));
     }
 
     static int[] minMax(int[] nums) {
@@ -40,5 +40,20 @@ public class TrainingOnDSA {
             }
         }
         return false;
+    }
+
+    static boolean containsDuplicateVersion2(int[] nums) {
+
+        int[] sortedNums = nums.clone();
+        Arrays.sort(sortedNums);
+
+        for (int i = 1; i < sortedNums.length; i++){
+
+            if(sortedNums [i - 1] == sortedNums [i]){
+                return true;
+            }
+        }
+
+            return false;
     }
 }
