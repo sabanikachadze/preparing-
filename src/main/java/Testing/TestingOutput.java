@@ -10,18 +10,18 @@ public class TestingOutput {
 
         // (a)
         String s = null;
-        System.out.println(s.length());
-// (b)
-        int x = "5";
-        System.out.println(x);
-// (c)
+        System.out.println(s.length());//NullPointerException at runtime
+        // (b)
+        //int x = "5"; // Compile exception, it won't compile
+        //System.out.println(x);
+        // (c)
         Object o = List.of(1);
         List<String> l = (List<String>) o;
-        System.out.println(l.size());
-// (d)
+        System.out.println(l.size());// UnsupportedOperationException or something will be thrown
+        // (d)
         final int[] arr = {1};
         arr[0] = 2;
-        System.out.println(arr[0]);
+        System.out.println(arr[0]); // 2 will be printed
     }
 
 
