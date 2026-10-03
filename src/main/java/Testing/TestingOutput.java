@@ -8,6 +8,25 @@ public class TestingOutput {
 
 
 
+    public static void main(String[] args) {
+
+        System.out.println(hasPairWithSum(new int[] {5,32,12,5,234,2,-1,12,-5}, 9));
+    }
+
+
+    static boolean hasPairWithSum(int[] nums, int target) {
+
+
+        for(int i = 0; i < nums.length; i++){
+
+            for(int j = i + 1; j < nums.length; j++){
+
+                if( nums [i] + nums [j] == target) return true;
+            }
+        }
+
+        return false;
+    }
 
 
 
@@ -33,13 +52,7 @@ public class TestingOutput {
 
 
 
-
-//    public static void main(String[] args) {
-//        System.out.println(DG4.averageOfPassed(List.of(80, 50, 65, 90), 65));   // expected about 78.33
-//        System.out.println(DG4.averageOfPassed(List.of(40, 30), 50));           // expected 0.0
-//    }
-//
-//public static class DG4 {
+// public static class DG4 {
 //
 //    static double averageOfPassed(List<Integer> scores, int passMark) {
 //
@@ -56,7 +69,6 @@ public class TestingOutput {
 //        return Math.round((sum / count) * 100.0) / 100.0; // diving integers cut decimal values from division + return type is double and division by zero isn't legal, also to round the value up top max two decimals
 //    }
 //}
-
 
 
 //
