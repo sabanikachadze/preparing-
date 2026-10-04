@@ -1,31 +1,34 @@
 package Testing;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class TestingOutput {
 
 
-
-
     public static void main(String[] args) {
 
-        System.out.println(hasPairWithSum(new int[] {5,32,12,5,234,2,-1,12,-5}, 9));
+        System.out.println(Arrays.toString(minMax(new int[]{4, 1, 3, 1})));
     }
 
 
-    static boolean hasPairWithSum(int[] nums, int target) {
+    public static int[] minMax(int[] arr) {
 
+        Objects.requireNonNull(arr);
 
-        for(int i = 0; i < nums.length; i++){
-
-            for(int j = i + 1; j < nums.length; j++){
-
-                if( nums [i] + nums [j] == target) return true;
-            }
+        if (arr.length == 0) {
+            throw new IllegalArgumentException();
         }
 
-        return false;
+        int min = arr[0];
+        int max = arr[0];
+
+        for (int val : arr) {
+
+            min = Math.min(min, val);
+            max = Math.max(max, val);
+        }
+
+        return new int[]{min, max};
     }
 
 
@@ -33,24 +36,20 @@ public class TestingOutput {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//    static boolean hasPairWithSum(int[] nums, int target) {
+//
+//
+//        for (int i = 0; i < nums.length; i++) {
+//
+//            for (int j = i + 1; j < nums.length; j++) {
+//
+//                if (nums[i] + nums[j] == target) return true;
+//            }
+//        }
+//
+//        return false;
+//    }
+//
 
 // public static class DG4 {
 //
