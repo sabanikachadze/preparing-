@@ -15,16 +15,15 @@ public class TestingOutput {
         Objects.requireNonNull(s, "Null value cannot be tested");
 
         if (s.isEmpty()) {
-            throw new IllegalStateException("Empty value cannot be tested");
+            throw new IllegalArgumentException("Empty value cannot be tested");
         }
 
-        char[] chars = s.toCharArray();
 
         Map<Character, Integer> counts = new HashMap<>();
 
-        for (char character : chars) {
+        for(int i = 0; i  < s.length() ; i++){
+            char c = Character.toLowerCase(s.charAt(i));
 
-            char c = Character.toLowerCase(character);
             if (c == ' ') continue;
             counts.merge(c, 1, Integer::sum);
         }
