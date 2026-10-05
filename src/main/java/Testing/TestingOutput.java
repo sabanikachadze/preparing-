@@ -6,34 +6,113 @@ public class TestingOutput {
 
 
     public static void main(String[] args) {
-
-        System.out.println(Arrays.toString(minMax(new int[]{4, 1, 3, 1})));
+//        System.out.println(describe(summarize(new int[]{12, 15, 9, 20}))); //min=9 max=20 avg=14.00 above=2
+//        System.out.println(describe(summarize(new int[]{-5, -5}))); // min=-5 max=-5 avg=-5.00 above=0
+//        System.out.println(describe(summarize(new int[]{Integer.MAX_VALUE, Integer.MAX_VALUE}))); // min=2147483647 max=2147483647 avg=2147483647.00 above=0
+        int[] big = new int[5_000_000];
+        Arrays.fill(big, Integer.MAX_VALUE);
+        System.out.println(describe(summarize(big)));
+//        try {
+//            summarize(new int[0]);
+//        } catch (IllegalArgumentException e) {
+//            System.out.println("empty -> " + e.getMessage());
+//        } // empty -> no readings
     }
 
 
-    public static int[] minMax(int[] arr) {
+    record Summary(int min, int max, double average, int aboveAverage) {
+    }
 
-        Objects.requireNonNull(arr);
+    static Summary summarize(int[] readings) {
 
-        if (arr.length == 0) {
-            throw new IllegalArgumentException();
+        if (readings == null || readings.length == 0) {
+            throw new IllegalArgumentException("no readings");
         }
 
-        int min = arr[0];
-        int max = arr[0];
+        int min = readings[0];
+        int max = readings[0];
+        long total = 0;
 
-        for (int val : arr) {
+        for (int num : readings) {
 
-            min = Math.min(min, val);
-            max = Math.max(max, val);
+            min = Math.min(min, num);
+            max = Math.max(max, num);
+            total += num;
         }
 
-        return new int[]{min, max};
+        double average = (double) total / readings.length;
+        int aboveAverage = 0;
+
+        for (int num : readings) {
+
+            if (num > average) aboveAverage++;
+        }
+
+        return new Summary(min, max, average, aboveAverage);
+    }
+
+    static String describe(Summary s) {
+
+
+        return String.format(Locale.ROOT, "min=%d max=%d avg=%.2f above=%d", s.min(), s.max(), s.average(), s.aboveAverage());
     }
 
 
+//
+//    public static boolean hasDuplicateBrute(int[] a) {
+//
+//        Objects.requireNonNull(a);
+//        if (a.length == 0) return false;
+//
+//
+//        for (int i = 0; i < a.length; i++) {
+//
+//            for (int j = i + 1; j < a.length; j++) {
+//
+//                if (a[i] == a[j]) return true;
+//            }
+//        }
+//
+//        return false;
+//    }
+//
+//    public static boolean hasDuplicateSorted(int[] a) {
+//
+//        int[] arr = a.clone();
+//        Arrays.sort(arr);
+//
+//        for (int i = 1; i < arr.length; i++) {
+//
+//            if (arr[i] == arr[i - 1]) return true;
+//        }
+//
+//        return false;
+//    }
+//
 
-
+//
+//
+//    public static int[] minMax(int[] arr) {
+//
+//        Objects.requireNonNull(arr);
+//
+//        if (arr.length == 0) {
+//            throw new IllegalArgumentException();
+//        }
+//
+//        int min = arr[0];
+//        int max = arr[0];
+//
+//        for (int val : arr) {
+//
+//            min = Math.min(min, val);
+//            max = Math.max(max, val);
+//        }
+//
+//        return new int[]{min, max};
+//    }
+//
+//
 
 
 //    static boolean hasPairWithSum(int[] nums, int target) {
