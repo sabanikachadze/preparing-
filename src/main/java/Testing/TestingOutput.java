@@ -7,29 +7,69 @@ public class TestingOutput {
 
     public static void main(String[] args) {
 
-        int[] arr = new int[]{1};
-        reverseInPlace(arr);
-        System.out.println(Arrays.toString(arr));
+        System.out.println(mostFrequentChar("   asf ASvzqs ASDsfaxrhpoppsdgsdppppaaa"));
+    }
+
+    static char mostFrequentChar(String s) {
+
+        Objects.requireNonNull(s, "Null value cannot be tested");
+
+        if (s.isEmpty()) {
+            throw new IllegalStateException("Empty value cannot be tested");
+        }
+
+        char[] chars = s.toCharArray();
+
+        Map<Character, Integer> counts = new HashMap<>();
+
+        for (char character : chars) {
+
+            char c = Character.toLowerCase(character);
+            if (c == ' ') continue;
+            counts.merge(c, 1, Integer::sum);
+        }
+
+        if (counts.isEmpty()) {
+            throw new IllegalArgumentException("Input contains no non-space characters");
+        }
+
+        char bestChar = '\0';
+        int bestCount = 0;
+
+        for (Map.Entry<Character, Integer> entry : counts.entrySet()) {
+            char c = entry.getKey();
+            int count = entry.getValue();
+
+            if (count > bestCount ||
+                    (count == bestCount && c < bestChar)) {
+
+                bestChar = c;
+                bestCount = count;
+            }
+        }
+
+        return bestChar;
     }
 
 
-    static void reverseInPlace(int[] a) {
-
-        if (a == null) {
-            throw new IllegalArgumentException("not reversible array");
-        }
-
-
-        for (int i = 0; i < a.length / 2; i++) {
-
-            int placeHolder = a[i];
-            int rightPointer = a.length - 1 - i;
-
-            a[i] = a[rightPointer];
-            a[rightPointer] = placeHolder;
-
-        }
-    }
+//
+//    static void reverseInPlace(int[] a) {
+//
+//        if (a == null) {
+//            throw new IllegalArgumentException("not reversible array");
+//        }
+//
+//
+//        for (int i = 0; i < a.length / 2; i++) {
+//
+//            int placeHolder = a[i];
+//            int rightPointer = a.length - 1 - i;
+//
+//            a[i] = a[rightPointer];
+//            a[rightPointer] = placeHolder;
+//
+//        }
+//    }
 
 
 //
