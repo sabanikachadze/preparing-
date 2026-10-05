@@ -6,56 +6,69 @@ public class TestingOutput {
 
 
     public static void main(String[] args) {
-//        System.out.println(describe(summarize(new int[]{12, 15, 9, 20}))); //min=9 max=20 avg=14.00 above=2
-//        System.out.println(describe(summarize(new int[]{-5, -5}))); // min=-5 max=-5 avg=-5.00 above=0
-//        System.out.println(describe(summarize(new int[]{Integer.MAX_VALUE, Integer.MAX_VALUE}))); // min=2147483647 max=2147483647 avg=2147483647.00 above=0
-        int[] big = new int[5_000_000];
-        Arrays.fill(big, Integer.MAX_VALUE);
-        System.out.println(describe(summarize(big)));
-//        try {
-//            summarize(new int[0]);
-//        } catch (IllegalArgumentException e) {
-//            System.out.println("empty -> " + e.getMessage());
-//        } // empty -> no readings
+
+        int[] arr = new int[]{1};
+        reverseInPlace(arr);
+        System.out.println(Arrays.toString(arr));
     }
 
 
-    record Summary(int min, int max, double average, int aboveAverage) {
-    }
+    static void reverseInPlace(int[] a) {
 
-    static Summary summarize(int[] readings) {
-
-        if (readings == null || readings.length == 0) {
-            throw new IllegalArgumentException("no readings");
+        if (a == null) {
+            throw new IllegalArgumentException("not reversible array");
         }
 
-        int min = readings[0];
-        int max = readings[0];
-        long total = 0;
 
-        for (int num : readings) {
+        for (int i = 0; i < a.length / 2; i++) {
 
-            min = Math.min(min, num);
-            max = Math.max(max, num);
-            total += num;
+            int placeHolder = a[i];
+            int rightPointer = a.length - 1 - i;
+
+            a[i] = a[rightPointer];
+            a[rightPointer] = placeHolder;
+
         }
-
-        double average = (double) total / readings.length;
-        int aboveAverage = 0;
-
-        for (int num : readings) {
-
-            if (num > average) aboveAverage++;
-        }
-
-        return new Summary(min, max, average, aboveAverage);
     }
 
-    static String describe(Summary s) {
 
-
-        return String.format(Locale.ROOT, "min=%d max=%d avg=%.2f above=%d", s.min(), s.max(), s.average(), s.aboveAverage());
-    }
+//
+//    record Summary(int min, int max, double average, int aboveAverage) {
+//    }
+//
+//    static Summary summarize(int[] readings) {
+//
+//        if (readings == null || readings.length == 0) {
+//
+//        }
+//
+//        int min = readings[0];
+//        int max = readings[0];
+//        long total = 0;
+//
+//        for (int num : readings) {
+//
+//            min = Math.min(min, num);
+//            max = Math.max(max, num);
+//            total += num;
+//        }
+//
+//        double average = (double) total / readings.length;
+//        int aboveAverage = 0;
+//
+//        for (int num : readings) {
+//
+//            if (num > average) aboveAverage++;
+//        }
+//
+//        return new Summary(min, max, average, aboveAverage);
+//    }
+//
+//    static String describe(Summary s) {
+//
+//
+//        return String.format(Locale.ROOT, "min=%d max=%d avg=%.2f above=%d", s.min(), s.max(), s.average(), s.aboveAverage());
+//    }
 
 
 //
