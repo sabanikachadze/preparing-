@@ -6,49 +6,127 @@ public class TestingOutput {
 
 
     public static void main(String[] args) {
+        System.out.println("[" + normalizeSpaces("  hello \t  java\n world  ") + "]");
+        System.out.println(capitalizeWords("   "));
+        System.out.println(countVowels("Programming in Java"));
+        System.out.println(sameText("Java", "JAVA") + " " + sameText(null, null) + " " + sameText("A", null));
+        try {
+            normalizeSpaces(null);
+        } catch (IllegalArgumentException e) {
+            System.out.println("null -> " + e.getMessage());
+        }
 
-        System.out.println(mostFrequentChar("   asf ASvzqs ASDsfaxrhpoppsdgsdppppaaa"));
     }
 
-    static char mostFrequentChar(String s) {
 
-        Objects.requireNonNull(s, "Null value cannot be tested");
+    static String normalizeSpaces(String s) {
 
-        if (s.isEmpty()) {
-            throw new IllegalArgumentException("Empty value cannot be tested");
+        if (s == null) {
+            throw new IllegalArgumentException("text is null");
         }
 
+        StringBuilder stBuild = new StringBuilder();
 
-        Map<Character, Integer> counts = new HashMap<>();
-
-        for(int i = 0; i  < s.length() ; i++){
-            char c = Character.toLowerCase(s.charAt(i));
-
-            if (c == ' ') continue;
-            counts.merge(c, 1, Integer::sum);
+        for (String ch : s.trim().split("\\s+")) {
+            stBuild.append(ch).append(" ");
         }
 
-        if (counts.isEmpty()) {
-            throw new IllegalArgumentException("Input contains no non-space characters");
+        return String.valueOf(stBuild).trim();
+    }
+
+    // capitalizeWords: capitalizes first character in word and rest into lowercase null or empty value is rejected with IAE
+    // because empty string and null cannot be worked on, and it's clearly not intended for these values.
+
+    static String capitalizeWords(String s) {
+
+        String normalised = normalizeSpaces(s);
+
+        if (normalised.isBlank()) throw new IllegalArgumentException("String isn't eligible for processing");
+
+        StringBuilder newString = new StringBuilder();
+
+        for (String str : normalised.split(" ")) {
+            newString.append(Character.toUpperCase(str.charAt(0)));
+            newString.append(str.substring(1).toLowerCase());
+            newString.append(" ");
         }
 
-        char bestChar = '\0';
-        int bestCount = 0;
+        return String.valueOf(newString).trim();
+    }
 
-        for (Map.Entry<Character, Integer> entry : counts.entrySet()) {
-            char c = entry.getKey();
-            int count = entry.getValue();
 
-            if (count > bestCount ||
-                    (count == bestCount && c < bestChar)) {
+    // countVowels: Counts vowels in text, and rejects null with IAE
+    // because the method works on actual text not on non-existent value.
+    static int countVowels(String s) {
 
-                bestChar = c;
-                bestCount = count;
+        if (s == null) {
+            throw new IllegalArgumentException("text is null");
+        }
+
+        List<String> vowels = List.of("a", "e", "i", "o", "u");
+        int count = 0;
+
+        for (String chr : s.split("")) {
+
+            if (vowels.contains(chr.toLowerCase())) {
+                count++;
             }
         }
 
-        return bestChar;
+
+        return count;
     }
+
+    static boolean sameText(String a, String b) {
+
+        if (Objects.equals(a, b)) return true;
+
+        if (a == null || b == null) return false;
+
+        return a.equalsIgnoreCase(b);
+    }
+
+
+//
+//    static char mostFrequentChar(String s) {
+//
+//        Objects.requireNonNull(s, "Null value cannot be tested");
+//
+//        if (s.isEmpty()) {
+//            throw new IllegalArgumentException("Empty value cannot be tested");
+//        }
+//
+//
+//        Map<Character, Integer> counts = new HashMap<>();
+//
+//        for (int i = 0; i < s.length(); i++) {
+//            char c = Character.toLowerCase(s.charAt(i));
+//
+//            if (c == ' ') continue;
+//            counts.merge(c, 1, Integer::sum);
+//        }
+//
+//        if (counts.isEmpty()) {
+//            throw new IllegalArgumentException("Input contains no non-space characters");
+//        }
+//
+//        char bestChar = '\0';
+//        int bestCount = 0;
+//
+//        for (Map.Entry<Character, Integer> entry : counts.entrySet()) {
+//            char c = entry.getKey();
+//            int count = entry.getValue();
+//
+//            if (count > bestCount ||
+//                    (count == bestCount && c < bestChar)) {
+//
+//                bestChar = c;
+//                bestCount = count;
+//            }
+//        }
+//
+//        return bestChar;
+//    }
 
 
 //
