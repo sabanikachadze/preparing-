@@ -6,85 +6,117 @@ public class TestingOutput {
 
 
     public static void main(String[] args) {
-        System.out.println("[" + normalizeSpaces("  hello \t  java\n world  ") + "]");
-        System.out.println(capitalizeWords("   "));
-        System.out.println(countVowels("Programming in Java"));
-        System.out.println(sameText("Java", "JAVA") + " " + sameText(null, null) + " " + sameText("A", null));
-        try {
-            normalizeSpaces(null);
-        } catch (IllegalArgumentException e) {
-            System.out.println("null -> " + e.getMessage());
-        }
+        // Input new int[]{9, 4, 7}
+        //  Right version ( 4 )
+        System.out.println(secondLargestDistinct(new int[]{4, 9, 9}));//   Wrong version ( 9 )
 
     }
 
+    public static OptionalInt secondLargestDistinct(int[] a) {
 
-    static String normalizeSpaces(String s) {
+        if (a == null) throw new IllegalArgumentException("null array cannot be processed");
 
-        if (s == null) {
-            throw new IllegalArgumentException("text is null");
+        if (a.length <= 1) {
+            return OptionalInt.empty();
         }
 
-        StringBuilder stBuild = new StringBuilder();
+        int biggest = a[0];
+        int secondBiggest = 0;
+        boolean hasSecond = false;
 
-        for (String ch : s.trim().split("\\s+")) {
-            stBuild.append(ch).append(" ");
-        }
+        for (int i = 1; i < a.length; i++) {
 
-        return String.valueOf(stBuild).trim();
-    }
-
-    // capitalizeWords: capitalizes first character in word and rest into lowercase null or empty value is rejected with IAE
-    // because empty string and null cannot be worked on, and it's clearly not intended for these values.
-
-    static String capitalizeWords(String s) {
-
-        String normalised = normalizeSpaces(s);
-
-        if (normalised.isBlank()) throw new IllegalArgumentException("String isn't eligible for processing");
-
-        StringBuilder newString = new StringBuilder();
-
-        for (String str : normalised.split(" ")) {
-            newString.append(Character.toUpperCase(str.charAt(0)));
-            newString.append(str.substring(1).toLowerCase());
-            newString.append(" ");
-        }
-
-        return String.valueOf(newString).trim();
-    }
-
-
-    // countVowels: Counts vowels in text, and rejects null with IAE
-    // because the method works on actual text not on non-existent value.
-    static int countVowels(String s) {
-
-        if (s == null) {
-            throw new IllegalArgumentException("text is null");
-        }
-
-        List<String> vowels = List.of("a", "e", "i", "o", "u");
-        int count = 0;
-
-        for (String chr : s.split("")) {
-
-            if (vowels.contains(chr.toLowerCase())) {
-                count++;
+            if (biggest < a[i]) {
+                secondBiggest = biggest;
+                biggest = a[i];
+                hasSecond = true;
             }
+
+            if (biggest == a[i]) continue;
+
+            if (!hasSecond || secondBiggest < a[i]) {
+                secondBiggest = a[i];
+                hasSecond = true;
+            }
+
         }
 
 
-        return count;
+        if (!hasSecond) {
+            return OptionalInt.empty();
+        }
+        return OptionalInt.of(secondBiggest);
     }
 
-    static boolean sameText(String a, String b) {
-
-        if (Objects.equals(a, b)) return true;
-
-        if (a == null || b == null) return false;
-
-        return a.equalsIgnoreCase(b);
-    }
+//
+//
+//
+//    static String normalizeSpaces(String s) {
+//
+//        if (s == null) {
+//            throw new IllegalArgumentException("text is null");
+//        }
+//
+//        StringBuilder stBuild = new StringBuilder();
+//
+//        for (String ch : s.trim().split("\\s+")) {
+//            stBuild.append(ch).append(" ");
+//        }
+//
+//        return String.valueOf(stBuild).trim();
+//    }
+//
+//    // capitalizeWords: capitalizes first character in word and rest into lowercase null or empty value is rejected with IAE
+//    // because empty string and null cannot be worked on, and it's clearly not intended for these values.
+//
+//    static String capitalizeWords(String s) {
+//
+//        String normalised = normalizeSpaces(s);
+//
+//        if (normalised.isBlank()) throw new IllegalArgumentException("String isn't eligible for processing");
+//
+//        StringBuilder newString = new StringBuilder();
+//
+//        for (String str : normalised.split(" ")) {
+//            newString.append(Character.toUpperCase(str.charAt(0)));
+//            newString.append(str.substring(1).toLowerCase());
+//            newString.append(" ");
+//        }
+//
+//        return String.valueOf(newString).trim();
+//    }
+//
+//
+//    // countVowels: Counts vowels in text, and rejects null with IAE
+//    // because the method works on actual text not on non-existent value.
+//    static int countVowels(String s) {
+//
+//        if (s == null) {
+//            throw new IllegalArgumentException("text is null");
+//        }
+//
+//        List<String> vowels = List.of("a", "e", "i", "o", "u");
+//        int count = 0;
+//
+//        for (String chr : s.split("")) {
+//
+//            if (vowels.contains(chr.toLowerCase())) {
+//                count++;
+//            }
+//        }
+//
+//
+//        return count;
+//    }
+//
+//    static boolean sameText(String a, String b) {
+//
+//        if (Objects.equals(a, b)) return true;
+//
+//        if (a == null || b == null) return false;
+//
+//        return a.equalsIgnoreCase(b);
+//    }
 
 
 //
