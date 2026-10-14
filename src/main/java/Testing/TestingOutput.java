@@ -6,48 +6,78 @@ public class TestingOutput {
 
 
     public static void main(String[] args) {
-        // Input new int[]{9, 4, 7}
-        //  Right version ( 4 )
-        System.out.println(secondLargestDistinct(new int[]{4, 9, 9}));//   Wrong version ( 9 )
+
+        System.out.println(longestRun(new int[] {1,1,1,1,1,1,1,1,}));
+        System.out.println(longestRun(new int[] {}));
+        System.out.println(longestRun(new int[] {1,1,1,0,1,0,1,1,}));
+        System.out.println(longestRun(new int[] {1,1,5,1,1,1,1,1,}));
+        System.out.println(longestRun(new int[] {5}));
+        System.out.println(longestRun(null));
 
     }
 
-    public static OptionalInt secondLargestDistinct(int[] a) {
 
-        if (a == null) throw new IllegalArgumentException("null array cannot be processed");
+    public static int longestRun(int[] values) {
 
-        if (a.length <= 1) {
-            return OptionalInt.empty();
+        if(values == null){
+            throw new IllegalArgumentException("values is null");
         }
 
-        int biggest = a[0];
-        int secondBiggest = 0;
-        boolean hasSecond = false;
+        if(values.length == 0){
+            return 0;
+        }
 
-        for (int i = 1; i < a.length; i++) {
-
-            if (biggest < a[i]) {
-                secondBiggest = biggest;
-                biggest = a[i];
-                hasSecond = true;
+        int current = 1;
+        int best = 1;
+        for (int i = 1; i < values.length; i++) {
+            if (values[i] == values[i - 1]) {
+                current++;
+            } else {
+                current = 1;
             }
-
-            if (biggest == a[i]) continue;
-
-            if (!hasSecond || secondBiggest < a[i]) {
-                secondBiggest = a[i];
-                hasSecond = true;
-            }
-
+            best = Math.max(best, current);
         }
-
-
-        if (!hasSecond) {
-            return OptionalInt.empty();
-        }
-        return OptionalInt.of(secondBiggest);
+        return best;
     }
 
+
+//
+//    public static OptionalInt secondLargestDistinct(int[] a) {
+//
+//        if (a == null) throw new IllegalArgumentException("null array cannot be processed");
+//
+//        if (a.length <= 1) {
+//            return OptionalInt.empty();
+//        }
+//
+//        int biggest = a[0];
+//        int secondBiggest = 0;
+//        boolean hasSecond = false;
+//
+//        for (int i = 1; i < a.length; i++) {
+//
+//            if (biggest < a[i]) {
+//                secondBiggest = biggest;
+//                biggest = a[i];
+//                hasSecond = true;
+//            }
+//
+//            if (biggest == a[i]) continue;
+//
+//            if (!hasSecond || secondBiggest < a[i]) {
+//                secondBiggest = a[i];
+//                hasSecond = true;
+//            }
+//
+//        }
+//
+//
+//        if (!hasSecond) {
+//            return OptionalInt.empty();
+//        }
+//        return OptionalInt.of(secondBiggest);
+//    }
+//
 //
 //
 //
