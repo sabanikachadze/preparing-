@@ -2,18 +2,31 @@ package Projects;
 
 import java.util.List;
 
+
 public class Main {
+    public static void main(String[] args) {
+        // Line 1, valid.
+        // expected: no exception, prints Student[id=5, name=Anna, surname=Berg, email=a@b.c]
+        System.out.println(new Student(5, "Anna", "Berg", "a@b.c"));
 
-    public void main(String[] args) {
+        // Line 2, bad name AND bad surname.
+        // expected: name must be in between 2-20 inclusive (the surname is never checked)
+        try {
+            new Student(1, "12", "@@", "a@b.c");
+            System.out.println("NO EXCEPTION");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
 
-        Score student1 = new Score("ann", 80);
-        Score student2 = new Score("bob", 95);
-        Score student3 = new Score("cid", 80);
-        Score student4 = new Score("dan", 60);
-
-        System.out.println(Score.aboveAverage(List.of(  student1,
-                                                        student2,
-                                                        student3,
-                                                        student4)));
+        // Line 3, null email.
+        // expected: Email is faulty (change this comment if you changed the string in Student)
+        try {
+            new Student(1, "Anna", "Berg", null);
+            System.out.println("NO EXCEPTION");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
+
+

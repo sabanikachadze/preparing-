@@ -6,14 +6,7 @@ public class TestingOutput {
 
 
     public static void main(String[] args) {
-
-        System.out.println(longestRun(new int[] {1,1,1,1,1,1,1,1,}));
-        System.out.println(longestRun(new int[] {}));
-        System.out.println(longestRun(new int[] {1,1,1,0,1,0,1,1,}));
-        System.out.println(longestRun(new int[] {1,1,5,1,1,1,1,1,}));
-        System.out.println(longestRun(new int[] {5}));
-        System.out.println(longestRun(null));
-
+        boolean b = 5.0 == 5;
     }
 
 
